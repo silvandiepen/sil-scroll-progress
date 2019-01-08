@@ -27,13 +27,15 @@ export default {
     };
   },
   mounted() {
+		let _this = this;
     if (!process.server) {
-      window.addEventListener("scroll", this.handleScroll);
+      window.addEventListener("scroll", _this.handleScroll);
     }
   },
   destroyed() {
+		let _this = this;
     if (!process.server) {
-      window.removeEventListener("scroll", this.handleScroll);
+      window.removeEventListener("scroll", _this.handleScroll);
     }
   },
   methods: {
@@ -41,11 +43,9 @@ export default {
       if (!process.server) {
         let h = document.documentElement;
         let b = document.body;
-        let st = "scrollTop";
-        let sh = "scrollHeight";
 
         this.scrolled =
-          ((h[st] || b[st]) / ((h[sh] || b[sh]) - h.clientHeight)) * 100;
+          ((h.scrollTop || b.scrollTop) / ((h.scrollHeight || b.scrollHeight) - h.clientHeight)) * 100;
       }
     }
   }
